@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azmin Hassan | Design System & Style Guide</title>
+    <meta name="description" content="Design system reference and style guide for Azmin Hassan's professional developer portfolio. Documentation on colors, typography, buttons, forms, and layout components.">
+    <meta name="author" content="Azmin Hassan">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/pic06.png" type="image/png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Portfolio Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Design System Specific Guide Styling -->
+    <style>
+        :root {
+            --guide-sidebar-width: 260px;
+            --guide-border: #E2E8F0;
+            --guide-code-bg: #F8FAFC;
+            --guide-code-text: #0F172A;
+            --guide-code-border: #E2E8F0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+        }
+
+        /* ── Guide Layout ────────────────────────────────────────── */
+        .guide-container {
+            display: grid;
+            grid-template-columns: var(--guide-sidebar-width) 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sticky Sidebar */
+        .guide-sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            border-right: 1px solid var(--guide-border);
+            background: var(--white);
+            padding: var(--space-6) var(--space-5);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            overflow-y: auto;
+        }
+
+        .guide-logo-area {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .guide-logo-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .guide-logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .guide-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .guide-nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-sm);
+            transition: all 150ms ease;
+        }
+
+        .guide-nav-link:hover {
+            color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .guide-nav-link.active {
+            color: var(--accent);
+            background: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .guide-content {
+            padding: var(--space-8) var(--space-10);
+            max-width: 960px;
+            width: 100%;
+        }
+
+        .guide-section {
+            margin-bottom: var(--space-10);
+            scroll-margin-top: var(--space-8);
+        }
+
+        .guide-section-header {
+            margin-bottom: var(--space-6);
+            border-bottom: 2px solid var(--guide-border);
+            padding-bottom: var(--space-3);
+        }
+
+        .guide-section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-1);
+        }
+
+        .guide-section-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Swatches Grid */
+        .swatch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .swatch-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 150ms ease, box-shadow 150ms ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .swatch-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .swatch-color-box {
+            height: 100px;
+            width: 100%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .swatch-info {
+            padding: var(--space-3) var(--space-4);
+        }
+
+        .swatch-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .swatch-var {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: var(--space-1);
+            word-break: break-all;
+        }
+
+        .swatch-hex {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Typography specimens */
+        .type-specimen {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .type-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: var(--space-5);
+            align-items: baseline;
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .type-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .type-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Spacing specimens */
+        .spacing-specimen {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .space-row {
+            display: grid;
+            grid-template-columns: 120px 80px 1fr;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .space-bar {
+            height: 16px;
+            background: var(--accent);
+            border-radius: var(--radius-sm);
+        }
+
+        /* Shadows / Radii cards */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .sample-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: var(--space-5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1.5;
+            transition: all 200ms ease;
+        }
+
+        /* Buttons & badges showcase */
+        .showcase-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-5);
+        }
+
+        .showcase-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+            border-left: 3px solid var(--accent);
+            padding-left: var(--space-2);
+        }
+
+        .showcase-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .showcase-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .showcase-label {
+            min-width: 140px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Interactive Notification */
+        .toast {
+            position: fixed;
+            bottom: var(--space-5);
+            right: var(--space-5);
+            background: var(--text-primary);
+            color: var(--white);
+            padding: var(--space-3) var(--space-5);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .guide-container {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-sidebar {
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--guide-border);
+                padding: var(--space-4) var(--space-5);
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .guide-nav {
+                display: none; /* hide default vertical nav on mobile layout */
+            }
+
+            .guide-content {
+                padding: var(--space-5);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Skip link -->
+    <a href="#intro" class="skip-link">Skip to system details</a>
+
+    <div class="guide-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="guide-sidebar" aria-label="Design System Navigation">
+            <div class="guide-logo-area">
+                <span class="guide-logo-title">Azmin Hassan</span>
+                <span class="guide-logo-subtitle">Design System</span>
+            </div>
+            
+            <nav class="guide-nav" aria-label="Style guide sections">
+                <a href="#intro" class="guide-nav-link active">Overview</a>
+                <a href="#colors" class="guide-nav-link">Colors</a>
+                <a href="#typography" class="guide-nav-link">Typography</a>
+                <a href="#spacing" class="guide-nav-link">Spacing</a>
+                <a href="#shadows-corners" class="guide-nav-link">Shadows & Corners</a>
+                <a href="#buttons-badges" class="guide-nav-link">Buttons & Badges</a>
+                <a href="#forms" class="guide-nav-link">Form Controls</a>
+                <a href="#components" class="guide-nav-link">UI Components</a>
+                <a href="index.html" class="guide-nav-link" style="margin-top: var(--space-6); border-top: 1px solid var(--guide-border); padding-top: var(--space-4); color: var(--accent);">← Back to Portfolio</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="guide-content" id="main-content">
+            
+            <!-- ── Introduction ──────────────────────────────── -->
+            <section id="intro" class="guide-section">
+                <div class="guide-section-header">
+                    <h1 class="guide-section-title">Design System &amp; Style Guide</h1>
+                    <p class="guide-section-desc">Design principles, variables, and components used across Azmin Hassan's resume-inspired portfolio.</p>
+                </div>
+                <div style="background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-sm); line-height: 1.8;">
+                    <p style="margin-bottom: var(--space-3);">
+                        This style guide compiles the design elements that compose the visual language of the portfolio site. Built on a clean, <strong>resume-inspired design</strong> that balances professional layout with modern developer aesthetics, the system leverages a strict set of design tokens defined as CSS custom properties in 
+                        <a href="style.css" target="_blank">style.css</a>.
+                    </p>
+                    <p>
+                        All styling is implemented using responsive <strong>CSS custom variables</strong>, fluid grids, and semantic HTML5 elements. Click on any color swatch to automatically copy its CSS custom variable to your clipboard for quick reuse.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ── Colors ───────────────────────────────────── -->
+            <section id="colors" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Color Palette</h2>
+                    <p class="guide-section-desc">A professional slate and indigo color system creating a clear contrast and visual hierarchy.</p>
+                </div>
+
+                <div class="swatch-grid">
+                    <!-- White -->
+                    <div class="swatch-card" data-copy="var(--white)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--white);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">White</div>
+                            <div class="swatch-var">--white</div>
+                            <div class="swatch-hex">#FFFFFF</div>
+                        </div>
+                    </div>
+                    <!-- Body Bg -->
+                    <div class="swatch-card" data-copy="var(--bg)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--bg);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Background</div>
+                            <div class="swatch-var">--bg</div>
+                            <div class="swatch-hex">#F1F5F9</div>
+                        </div>
+                    </div>
+                    <!-- Surface -->
+                    <div class="swatch-card" data-copy="var(--surface)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--surface);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Surface</div>
+                            <div class="swatch-var">--surface</div>
+                            <div class="swatch-hex">#FFFFFF</div>
+                        </div>
+                    </div>
+                    <!-- Surface Alt -->
+                    <div class="swatch-card" data-copy="var(--surface-alt)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--surface-alt);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Surface Alt</div>
+                            <div class="swatch-var">--surface-alt</div>
+                            <div class="swatch-hex">#F8FAFC</div>
+                        </div>
+                    </div>
+                    <!-- Accent -->
+                    <div class="swatch-card" data-copy="var(--accent)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--accent);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Accent (Indigo)</div>
+                            <div class="swatch-var">--accent</div>
+                            <div class="swatch-hex">#4F46E5</div>
+                        </div>
+                    </div>
+                    <!-- Accent Hover -->
+                    <div class="swatch-card" data-copy="var(--accent-hover)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--accent-hover);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Accent Hover</div>
+                            <div class="swatch-var">--accent-hover</div>
+                            <div class="swatch-hex">#4338CA</div>
+                        </div>
+                    </div>
+                    <!-- Accent Light -->
+                    <div class="swatch-card" data-copy="var(--accent-light)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--accent-light);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Accent Light</div>
+                            <div class="swatch-var">--accent-light</div>
+                            <div class="swatch-hex">#EEF2FF</div>
+                        </div>
+                    </div>
+                    <!-- Accent Border -->
+                    <div class="swatch-card" data-copy="var(--accent-border)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--accent-border);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Accent Border</div>
+                            <div class="swatch-var">--accent-border</div>
+                            <div class="swatch-hex">#C7D2FE</div>
+                        </div>
+                    </div>
+                    <!-- Text Primary -->
+                    <div class="swatch-card" data-copy="var(--text-primary)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--text-primary);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Text Primary</div>
+                            <div class="swatch-var">--text-primary</div>
+                            <div class="swatch-hex">#0F172A</div>
+                        </div>
+                    </div>
+                    <!-- Text Secondary -->
+                    <div class="swatch-card" data-copy="var(--text-secondary)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--text-secondary);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Text Secondary</div>
+                            <div class="swatch-var">--text-secondary</div>
+                            <div class="swatch-hex">#475569</div>
+                        </div>
+                    </div>
+                    <!-- Text Muted -->
+                    <div class="swatch-card" data-copy="var(--text-muted)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--text-muted);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Text Muted</div>
+                            <div class="swatch-var">--text-muted</div>
+                            <div class="swatch-hex">#94A3B8</div>
+                        </div>
+                    </div>
+                    <!-- Border -->
+                    <div class="swatch-card" data-copy="var(--border)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--border);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Border</div>
+                            <div class="swatch-var">--border</div>
+                            <div class="swatch-hex">#E2E8F0</div>
+                        </div>
+                    </div>
+                    <!-- Border Dark -->
+                    <div class="swatch-card" data-copy="var(--border-dark)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--border-dark);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Border Dark</div>
+                            <div class="swatch-var">--border-dark</div>
+                            <div class="swatch-hex">#CBD5E1</div>
+                        </div>
+                    </div>
+                    <!-- Success -->
+                    <div class="swatch-card" data-copy="var(--success)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--success);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Success</div>
+                            <div class="swatch-var">--success</div>
+                            <div class="swatch-hex">#10B981</div>
+                        </div>
+                    </div>
+                    <!-- Error -->
+                    <div class="swatch-card" data-copy="var(--error)" title="Click to copy variable">
+                        <div class="swatch-color-box" style="background-color: var(--error);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Error</div>
+                            <div class="swatch-var">--error</div>
+                            <div class="swatch-hex">#EF4444</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Typography ───────────────────────────────── -->
+            <section id="typography" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Typography</h2>
+                    <p class="guide-section-desc">Clean, readable geometric sans-serif typeface combined with highly structured typography hierarchies.</p>
+                </div>
+
+                <div class="type-specimen">
+                    <!-- Font Family -->
+                    <div class="type-row">
+                        <span class="type-label">Sans-Serif Font</span>
+                        <div>
+                            <p style="font-size: 1.1rem; font-weight: 700; margin-bottom: 4px;">Inter</p>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Used for all headers, summaries, body text, buttons, labels and forms.</p>
+                            <code style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--guide-code-bg); padding: 2px 6px; border: 1px solid var(--guide-code-border); border-radius: 4px;">var(--font-sans)</code>
+                        </div>
+                    </div>
+                    <div class="type-row">
+                        <span class="type-label">Monospace Font</span>
+                        <div>
+                            <p style="font-size: 1.1rem; font-weight: 500; font-family: var(--font-mono); margin-bottom: 4px;">JetBrains Mono</p>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">Used for variables, tags, tech details, data formats and source references.</p>
+                            <code style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--guide-code-bg); padding: 2px 6px; border: 1px solid var(--guide-code-border); border-radius: 4px;">var(--font-mono)</code>
+                        </div>
+                    </div>
+
+                    <!-- Heading Sizes -->
+                    <div class="type-row">
+                        <span class="type-label">Hero Heading (H1)</span>
+                        <div>
+                            <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--text-primary); line-height: 1.1; margin-bottom: 4px;">Azmin Hassan</h1>
+                            <p class="type-label">Size: clamp(2.2rem, 5vw, 3.2rem) | Bold (700) | Letter-spacing: -0.02em</p>
+                        </div>
+                    </div>
+                    <div class="type-row">
+                        <span class="type-label">Section Heading (H2)</span>
+                        <div>
+                            <h2 style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em;">Technical Skills</h2>
+                            <p class="type-label" style="margin-top: 4px;">Size: 0.75rem | Bold (700) | Uppercase | Letter-spacing: 0.12em</p>
+                        </div>
+                    </div>
+                    <div class="type-row">
+                        <span class="type-label">Card Title (H3)</span>
+                        <div>
+                            <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-primary); line-height: 1.3;">UMT Classroom Booking System</h3>
+                            <p class="type-label">Size: 1rem | Bold (700) | Line-height: 1.3</p>
+                        </div>
+                    </div>
+                    <div class="type-row">
+                        <span class="type-label">Body Text</span>
+                        <div>
+                            <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7;">
+                                Backend-focused Computer Science undergraduate at Universiti Malaysia Terengganu, specialising in Java, web technologies, and database systems. Proactive learner who quickly adapts.
+                            </p>
+                            <p class="type-label" style="margin-top: 4px;">Size: 1rem | Regular (400) | Line-height: 1.7 | Color: var(--text-secondary)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Spacing ──────────────────────────────────── -->
+            <section id="spacing" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Spacing Scale</h2>
+                    <p class="guide-section-desc">A structured spacer system to establish dynamic, cohesive layouts and responsive margins.</p>
+                </div>
+
+                <div class="spacing-specimen">
+                    <!-- space-1 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-1</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">0.25rem (4px)</span>
+                        <div class="space-bar" style="width: 4px;" title="4px width"></div>
+                    </div>
+                    <!-- space-2 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-2</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">0.5rem (8px)</span>
+                        <div class="space-bar" style="width: 8px;" title="8px width"></div>
+                    </div>
+                    <!-- space-3 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-3</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">0.75rem (12px)</span>
+                        <div class="space-bar" style="width: 12px;" title="12px width"></div>
+                    </div>
+                    <!-- space-4 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-4</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">1.0rem (16px)</span>
+                        <div class="space-bar" style="width: 16px;" title="16px width"></div>
+                    </div>
+                    <!-- space-5 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-5</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">1.5rem (24px)</span>
+                        <div class="space-bar" style="width: 24px;" title="24px width"></div>
+                    </div>
+                    <!-- space-6 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-6</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">2.0rem (32px)</span>
+                        <div class="space-bar" style="width: 32px;" title="32px width"></div>
+                    </div>
+                    <!-- space-7 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-7</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">2.5rem (40px)</span>
+                        <div class="space-bar" style="width: 40px;" title="40px width"></div>
+                    </div>
+                    <!-- space-8 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-8</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">3.0rem (48px)</span>
+                        <div class="space-bar" style="width: 48px;" title="48px width"></div>
+                    </div>
+                    <!-- space-10 -->
+                    <div class="space-row">
+                        <span class="type-label">--space-10</span>
+                        <span style="font-size: 0.85rem; font-weight: 600;">4.0rem (64px)</span>
+                        <div class="space-bar" style="width: 64px;" title="64px width"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Shadows & Corners ────────────────────────── -->
+            <section id="shadows-corners" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Shadows &amp; Border Radii</h2>
+                    <p class="guide-section-desc">Depth and shape variables that define card layout containers, buttons, and custom controls.</p>
+                </div>
+
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: var(--space-4);">Shadow Depth Scale</h3>
+                <div class="grid-3" style="margin-bottom: var(--space-6);">
+                    <div class="sample-card" style="box-shadow: var(--shadow-sm); border-radius: var(--radius); background: var(--white);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Small Shadow</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">var(--shadow-sm)</code>
+                    </div>
+                    <div class="sample-card" style="box-shadow: var(--shadow-md); border-radius: var(--radius); background: var(--white);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Medium Shadow</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">var(--shadow-md)</code>
+                    </div>
+                    <div class="sample-card" style="box-shadow: var(--shadow-lg); border-radius: var(--radius); background: var(--white);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Large Shadow</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">var(--shadow-lg)</code>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: var(--space-4);">Rounded Corners (Radii)</h3>
+                <div class="grid-3">
+                    <div class="sample-card" style="border-radius: var(--radius-sm); background: var(--white); border: 2px dashed var(--border-dark);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Small Radius</span>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">6px</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-top: 8px;">var(--radius-sm)</code>
+                    </div>
+                    <div class="sample-card" style="border-radius: var(--radius); background: var(--white); border: 2px dashed var(--border-dark);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Standard Radius</span>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">10px</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-top: 8px;">var(--radius)</code>
+                    </div>
+                    <div class="sample-card" style="border-radius: var(--radius-lg); background: var(--white); border: 2px dashed var(--border-dark);">
+                        <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary);">Large Radius</span>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">16px</span>
+                        <code style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-top: 8px;">var(--radius-lg)</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Buttons & Badges ─────────────────────────── -->
+            <section id="buttons-badges" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Buttons, Badges &amp; Tags</h2>
+                    <p class="guide-section-desc">Interactive elements with structured colors, hover logic, and smooth transitions.</p>
+                </div>
+
+                <!-- Buttons Showcase -->
+                <div class="showcase-block">
+                    <h3 class="showcase-title">Button Variants</h3>
+                    
+                    <div class="showcase-row">
+                        <span class="showcase-label">Primary Button</span>
+                        <button type="button" class="btn btn-primary">Primary Action</button>
+                        <code style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: auto;">.btn.btn-primary</code>
+                    </div>
+
+                    <div class="showcase-row">
+                        <span class="showcase-label">Outline Button</span>
+                        <button type="button" class="btn btn-outline">Secondary Action</button>
+                        <code style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: auto;">.btn.btn-outline</code>
+                    </div>
+
+                    <div class="showcase-row">
+                        <span class="showcase-label">Small Outline</span>
+                        <button type="button" class="btn btn-outline btn-sm">Small Button</button>
+                        <code style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: auto;">.btn.btn-outline.btn-sm</code>
+                    </div>
+                </div>
+
+                <!-- Badges Showcase -->
+                <div class="showcase-block">
+                    <h3 class="showcase-title">Badges &amp; Tags</h3>
+
+                    <div class="showcase-row">
+                        <span class="showcase-label">Skill Tags</span>
+                        <div class="skill-tags">
+                            <span class="skill-tag highlight">Java (Highlight)</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                        <code style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: auto;">.skill-tag (.highlight)</code>
+                    </div>
+
+                    <div class="showcase-row">
+                        <span class="showcase-label">Tech Badges</span>
+                        <div style="display: flex; gap: var(--space-2);">
+                            <span class="tech-badge">Apache Tomcat</span>
+                            <span class="tech-badge">JSP</span>
+                        </div>
+                        <code style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-left: auto;">.tech-badge</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Form Controls ────────────────────────────── -->
+            <section id="forms" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">Form Controls</h2>
+                    <p class="guide-section-desc">Styling definitions for interactive form elements, supporting inputs, select fields, checkboxes, textareas, and validation cues.</p>
+                </div>
+
+                <div class="showcase-block" style="border-radius: var(--radius-lg); background: var(--white); border-color: var(--accent-border);">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: var(--space-5);">Contact / Feedback Mock Form</h3>
+                    
+                    <form id="showcase-contact-form" novalidate>
+                        
+                        <!-- Form Row with Name and Email -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="form-name" class="form-label">Full Name</label>
+                                <input type="text" id="form-name" class="form-control" placeholder="Azmin Hassan" required>
+                                <span class="form-help">Enter your first and last name.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email" class="form-label">Email Address</label>
+                                <input type="email" id="form-email" class="form-control" placeholder="example@domain.com" required>
+                                <span id="email-error" class="form-error" style="display: none;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" style="margin-right: 2px;">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                                    </svg>
+                                    Please enter a valid email address.
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Select -->
+                        <div class="form-group">
+                            <label for="form-subject" class="form-label">Subject Inquiry</label>
+                            <select id="form-subject" class="form-control">
+                                <option value="general">General Inquiry</option>
+                                <option value="internship">Internship Opportunity</option>
+                                <option value="freelance">Freelance Collaboration</option>
+                                <option value="other">Other Options</option>
+                            </select>
+                        </div>
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label for="form-message" class="form-label">Your Message</label>
+                            <textarea id="form-message" class="form-control" placeholder="Write down your detailed message here..."></textarea>
+                            <span class="form-help">Tip: You can drag the bottom-right corner to resize this area.</span>
+                        </div>
+
+                        <!-- Checkboxes & Radios -->
+                        <div class="form-group" style="margin-bottom: var(--space-6);">
+                            <label class="form-label">Select Options</label>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-1);">
+                                <label class="form-check">
+                                    <input type="checkbox" name="form-opt-in" class="form-check-input" checked>
+                                    <span>Send me a copy of this message via email.</span>
+                                </label>
+                                <label class="form-check">
+                                    <input type="checkbox" name="form-terms" class="form-check-input">
+                                    <span>I accept the contact terms and conditions.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Disabled Input State Demonstration -->
+                        <div class="form-group" style="margin-bottom: var(--space-6);">
+                            <label for="form-disabled" class="form-label">API Endpoint (Disabled/Read-Only)</label>
+                            <input type="text" id="form-disabled" class="form-control" value="https://api.minazmin.my/v1/inquire" disabled>
+                            <span class="form-help">This field represents how a locked/read-only input field is presented.</span>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+                            <button type="submit" class="btn btn-primary" id="form-submit-btn">Submit Inquiry</button>
+                            <button type="reset" class="btn btn-outline" id="form-reset-btn">Reset Form</button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
+            <!-- ── Components ───────────────────────────────── -->
+            <section id="components" class="guide-section">
+                <div class="guide-section-header">
+                    <h2 class="guide-section-title">UI Components</h2>
+                    <p class="guide-section-desc">Fully rendered components styled using the style variables as seen in the production portfolio site.</p>
+                </div>
+
+                <!-- 1. Section Header -->
+                <div style="margin-bottom: var(--space-8);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-4);">Section Header</h3>
+                    <div class="section-header" style="background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-5) var(--space-6); box-shadow: var(--shadow-sm);">
+                        <h2 class="section-title">Project Experience</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Project Card -->
+                <div style="margin-bottom: var(--space-8);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-4);">Project Card</h3>
+                    
+                    <div style="max-width: 480px;">
+                        <article class="project-card">
+                            <div class="project-card-header">
+                                <h3 class="project-title">UMT Classroom Booking System</h3>
+                                <div class="project-links">
+                                    <a href="https://github.com/aezmine" target="_blank" rel="noopener noreferrer" class="project-link-btn" title="GitHub">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 14px; height: 14px;">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37(NaN)a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="project-desc">
+                                <ul>
+                                    <li>Developed a full web-based classroom reservation system using Java, JSP, and MySQL.</li>
+                                    <li>Implemented booking conflict detection logic to prevent scheduling overlaps.</li>
+                                    <li>Deployed on Apache Tomcat; reduced manual scheduling conflicts through automation scripts.</li>
+                                </ul>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Java</span>
+                                <span class="tech-badge">JSP</span>
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">Tomcat</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- 3. Timeline Item -->
+                <div style="margin-bottom: var(--space-8);">
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-4);">Timeline Item</h3>
+                    
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6) var(--space-7); box-shadow: var(--shadow-sm);">
+                        <div class="timeline" style="border-left: none;">
+                            <article class="timeline-item" style="padding-bottom: 0; border-left: none;">
+                                <div class="timeline-header">
+                                    <div>
+                                        <h3 class="timeline-title">Logistics Assistant <span class="timeline-company">@ J&amp;T Express &amp; Shopee</span></h3>
+                                    </div>
+                                    <span class="timeline-date">2024 – 2025</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <ul style="padding-left: var(--space-4); list-style: disc;">
+                                        <li style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.35rem;">Managed parcel sorting and logistics workflow with high accuracy across high-volume distribution runs.</li>
+                                        <li style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.35rem;">Optimised task execution in a fast-paced distribution environment.</li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Additional Information Card -->
+                <div>
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-4);">Additional Information Card</h3>
+                    
+                    <div style="max-width: 320px;">
+                        <div class="additional-card">
+                            <p class="additional-label">Languages</p>
+                            <div class="additional-items">
+                                <span class="additional-item">English — Intermediate</span>
+                                <span class="additional-item">Bahasa Melayu — Fluent (native)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Floating Copy Confirmation Toast -->
+    <div id="copy-toast" class="toast" role="alert" aria-live="assertive">
+        Variable Copied to Clipboard!
+    </div>
+
+    <!-- Scripting for interactivity -->
+    <script>
+        /* ── Floating Swatch Clipboard copy helper ────────── */
+        const swatchCards = document.querySelectorAll('.swatch-card');
+        const copyToast = document.getElementById('copy-toast');
+
+        swatchCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const varToCopy = card.getAttribute('data-copy');
+                if (!varToCopy) return;
+
+                navigator.clipboard.writeText(varToCopy).then(() => {
+                    // Show custom floating toast
+                    copyToast.classList.add('show');
+                    setTimeout(() => {
+                        copyToast.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+        });
+
+        /* ── Active navigation linking on scroll ────────── */
+        const sections = document.querySelectorAll('.guide-section');
+        const navLinks = document.querySelectorAll('.guide-nav-link');
+
+        window.addEventListener('scroll', () => {
+            let currentSectionId = 'intro';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 120) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === '#' + currentSectionId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+
+        /* ── Mock Form Validation & UI Demonstration ─────── */
+        const mockForm = document.getElementById('showcase-contact-form');
+        const emailInput = document.getElementById('form-email');
+        const emailError = document.getElementById('email-error');
+
+        mockForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // prevent actual redirection / page reload
+            
+            let isFormValid = true;
+
+            // Simple mock validation of email input
+            const emailValue = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(emailValue)) {
+                emailInput.classList.add('is-invalid');
+                emailInput.setAttribute('aria-invalid', 'true');
+                emailError.style.display = 'flex';
+                isFormValid = false;
+            } else {
+                emailInput.classList.remove('is-invalid');
+                emailInput.setAttribute('aria-invalid', 'false');
+                emailError.style.display = 'none';
+            }
+
+            if (isFormValid) {
+                // Show a successful submission simulation
+                alert('Success! (Form validation passed. In production, this would trigger an API post or mail send action.)');
+                mockForm.reset();
+                emailInput.classList.remove('is-invalid');
+                emailInput.setAttribute('aria-invalid', 'false');
+                emailError.style.display = 'none';
+            }
+        });
+
+        mockForm.addEventListener('reset', () => {
+            // Remove validation cues on form reset
+            emailInput.classList.remove('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'false');
+            emailError.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
