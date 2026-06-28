@@ -283,7 +283,7 @@
     padding: 0 14px 10px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     flex-shrink: 0;
 }
 
@@ -296,14 +296,43 @@
     margin-bottom: 2px;
 }
 
+.chat-suggestions-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 6px;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Custom thin scrollbar for suggestion chips */
+.chat-suggestions-list::-webkit-scrollbar {
+    height: 4px;
+}
+
+.chat-suggestions-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-suggestions-list::-webkit-scrollbar-thumb {
+    background: #E2E8F0;
+    border-radius: 4px;
+}
+
+.chat-suggestions-list::-webkit-scrollbar-thumb:hover {
+    background: #CBD5E1;
+}
+
 .suggestion-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
+    flex-shrink: 0;
+    white-space: nowrap;
+    width: auto;
+    text-align: center;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 20px;
+    padding: 6px 14px;
     font-size: 12.5px;
     color: #334155;
     cursor: pointer;

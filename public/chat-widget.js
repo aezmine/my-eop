@@ -164,14 +164,15 @@
         const container = document.getElementById('chat-suggestions');
         if (!container) return;
 
-
-
         const label = document.createElement('p');
         label.className = 'chat-suggestions-label';
         label.textContent = 'Try asking…';
 
         container.innerHTML = '';
         container.appendChild(label);
+
+        const list = document.createElement('div');
+        list.className = 'chat-suggestions-list';
 
         CONFIG.suggestions.forEach(q => {
             const btn = document.createElement('button');
@@ -187,8 +188,10 @@
                     sendMessage(clean);
                 }
             });
-            container.appendChild(btn);
+            list.appendChild(btn);
         });
+
+        container.appendChild(list);
     }
 
     /* ── Append Message to DOM ──────────────────────────────── */
