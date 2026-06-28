@@ -9,6 +9,18 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onNavigate }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Scroll to section based on hash on mount
+    const initialHash = window.location.hash;
+    if (initialHash && initialHash.startsWith('#') && initialHash !== '#/eop' && initialHash !== '#/admin') {
+      const id = initialHash.substring(1);
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }
+
     // 1. Scroll-Fade Observer (IntersectionObserver)
     const fadeObserver = new IntersectionObserver(
       (entries) => {

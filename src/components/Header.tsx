@@ -18,6 +18,23 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
     localStorage.setItem("theme", "light");
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    if (currentPath !== "/") {
+      // First navigate back to the main page
+      onNavigate("/");
+      // Set the hash so Portfolio knows where to scroll on mount
+      window.location.hash = `#${sectionId}`;
+    } else {
+      // Scroll locally if already on the main page
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white/96 border-b border-slate-200 backdrop-blur-md shadow-sm transition-colors duration-200" role="banner">
       <div className="max-w-[1100px] mx-auto px-5 flex items-center justify-between h-16">
@@ -35,11 +52,51 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
           <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
+            href="#summary"
+            onClick={(e) => handleNavClick(e, "summary")}
             className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
           >
-            Main Portfolio
+            Summary
+          </a>
+
+          <a
+            href="#skills"
+            onClick={(e) => handleNavClick(e, "skills")}
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#experience"
+            onClick={(e) => handleNavClick(e, "experience")}
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
+          >
+            Experience
+          </a>
+
+          <a
+            href="#projects"
+            onClick={(e) => handleNavClick(e, "projects")}
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
+          >
+            Projects
+          </a>
+
+          <a
+            href="#education"
+            onClick={(e) => handleNavClick(e, "education")}
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
+          >
+            Education
+          </a>
+
+          <a
+            href="#resume"
+            onClick={(e) => handleNavClick(e, "resume")}
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
+          >
+            Resume
           </a>
 
           <a
@@ -68,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
           )}
         </nav>
 
-        {/* ATS Mode Button - Matches Main Portfolio layout */}
+        {/* ATS Mode Button - Matches Main Portfolio Layout */}
         <div className="hidden md:flex items-center gap-4">
           <a
             href="ats.html"
@@ -108,11 +165,51 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
       {mobileMenuOpen && (
         <nav className="md:hidden border-t border-slate-200 bg-white px-5 py-4 flex flex-col gap-4 shadow-lg" aria-label="Mobile navigation">
           <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/"); setMobileMenuOpen(false); }}
+            href="#summary"
+            onClick={(e) => handleNavClick(e, "summary")}
             className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
           >
-            Main Portfolio
+            Summary
+          </a>
+
+          <a
+            href="#skills"
+            onClick={(e) => handleNavClick(e, "skills")}
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#experience"
+            onClick={(e) => handleNavClick(e, "experience")}
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
+          >
+            Experience
+          </a>
+
+          <a
+            href="#projects"
+            onClick={(e) => handleNavClick(e, "projects")}
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
+          >
+            Projects
+          </a>
+
+          <a
+            href="#education"
+            onClick={(e) => handleNavClick(e, "education")}
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
+          >
+            Education
+          </a>
+
+          <a
+            href="#resume"
+            onClick={(e) => handleNavClick(e, "resume")}
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
+          >
+            Resume
           </a>
 
           <a
