@@ -204,8 +204,10 @@
 
         const bubble = document.createElement('div');
         bubble.className = 'chat-bubble';
-        // Preserve line breaks from AI responses
-        bubble.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+        // Parse simple markdown-like **bold** to <strong>bold</strong> and preserve line breaks
+        bubble.innerHTML = escapeHtml(text)
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
 
         const time = document.createElement('span');
         time.className = 'chat-msg-time';
