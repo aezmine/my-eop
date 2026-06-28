@@ -248,8 +248,38 @@
         el.style.height = Math.min(el.scrollHeight, 100) + 'px';
     }
 
-    /* ── Send Message ───────────────────────────────────────── */
-    async function sendMessage(question) {
+    /* ── Hardcoded FAQ Content ──────────────────────────────── */
+    const FAQ = [
+        {
+            keywords: ['who', 'about', 'background', 'bio', 'azmin', 'hassan'],
+            answer: "Azmin Hassan is a Computer Science undergraduate student specializing in Maritime Informatics at Universiti Malaysia Terengganu (UMT). He has hands-on experience building backend-driven systems using Java, JSP, and MySQL."
+        },
+        {
+            keywords: ['degree', 'study', 'studying', 'education', 'gpa', 'cgpa', 'university', 'umt', 'grad', 'graduation'],
+            answer: "He is pursuing a Bachelor of Computer Science with Maritime Informatics (Honours) at Universiti Malaysia Terengganu (UMT). His current CGPA is 3.49, and he is expected to graduate in 2027."
+        },
+        {
+            keywords: ['language', 'languages', 'skills', 'programming', 'code', 'know', 'tech', 'python', 'java', 'js'],
+            answer: "Azmin's technical skills include:\n\n• **Programming**: Java (primary), JavaScript, HTML5/CSS3, Python (basic)\n• **Web Tech**: JSP, Servlets, REST APIs, responsive design\n• **Databases**: MySQL (CRUD, query optimization, schema design)\n• **Tools**: Git, GitHub, Apache Tomcat, Raspberry Pi Pico W"
+        },
+        {
+            keywords: ['project', 'projects', 'portfolio', 'work', 'weather', 'kelulut', 'booking'],
+            answer: "Here are some of Azmin's key projects:\n\n1. **UMT Classroom Booking System**: A web app built with Java, JSP, MySQL, and Tomcat, featuring scheduling conflict-detection.\n2. **Virtual Kelulut Repository System**: A bee research database system built at UMT.\n3. **Mini Weather Station**: An IoT project using Raspberry Pi Pico W, MicroPython, and ThingSpeak."
+        },
+        {
+            keywords: ['contact', 'email', 'phone', 'call', 'reach', 'social', 'linkedin', 'github'],
+            answer: "You can contact Azmin via:\n\n• **Email**: aezmine@gmail.com\n• **Phone**: +60-1139018046\n• **LinkedIn**: linkedin.com/in/aezmine\n• **GitHub**: github.com/aezmine"
+        },
+        {
+            keywords: ['intern', 'internship', 'job', 'seeking', 'role', 'roles', 'hire'],
+            answer: "Azmin is actively seeking software engineering internships, with a focus on **Java Developer** or **Backend-related roles**. He is open to full-stack internships, willing to relocate, and eager to learn!"
+        }
+    ];
+
+    const FALLBACK_ANSWER = "I don't have information about that specific query. Feel free to click one of the suggested buttons or ask about his:\n\n• Background & Bio\n• Education & Degree\n• Programming Languages & Skills\n• Relational Database Projects\n• Contact Details\n• Internship Preferences";
+
+    /* ── Send Message (FAQ Local Simulation) ────────────────── */
+    function sendMessage(question) {
         question = question.trim();
         if (!question) return;
 
@@ -269,43 +299,24 @@
         // Show typing
         showTyping();
 
-        try {
-            const response = await fetch(CONFIG.functionUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    question,
-                    sessionId: SESSION_ID,
-                    pageUrl: CONFIG.pageUrl,
-                }),
-            });
-
+        // Simulate typing delay of 750ms for natural chat feel
+        setTimeout(() => {
             hideTyping();
 
-            if (!response.ok) {
-                throw new Error(`Server error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const answer = data.answer || 'Sorry, I could not generate a response. Please try again.';
+            // Match keyword
+            const clean = question.toLowerCase();
+            const match = FAQ.find(item => item.keywords.some(keyword => clean.includes(keyword)));
+            const answer = match ? match.answer : FALLBACK_ANSWER;
 
             appendMessage('ai', answer);
             chatHistory.push({ role: 'ai', text: answer });
 
-        } catch (err) {
-            hideTyping();
-            console.error('[ChatWidget] Error:', err);
+            // Restore suggestions
+            setTimeout(() => {
+                renderSuggestions();
+            }, 400);
 
-            const isNetworkErr = err.message.includes('Failed to fetch') || err.message.includes('NetworkError');
-            const errorMsg = isNetworkErr
-                ? 'I\'m having trouble connecting. Please check your internet connection and try again.'
-                : 'Something went wrong on my end. Please try again in a moment.';
-
-            appendMessage('ai', errorMsg, true);
-        }
+        }, 750);
     }
 
     /* ── Toggle Panel Open / Close ──────────────────────────── */
