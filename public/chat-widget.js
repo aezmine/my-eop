@@ -164,10 +164,7 @@
         const container = document.getElementById('chat-suggestions');
         if (!container) return;
 
-        if (chatHistory.length > 0) {
-            container.innerHTML = '';
-            return;
-        }
+
 
         const label = document.createElement('p');
         label.className = 'chat-suggestions-label';
