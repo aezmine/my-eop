@@ -25,6 +25,18 @@ dist-ssr
 .env.*
 !.env.example
 
+# Service local directories
+.firebase/
+.vercel/
+
+# Credentials, private keys, and secrets
+*credentials*.json
+*secret*.json
+*token*.json
+serviceAccountKey.json
+*.pem
+*.key
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

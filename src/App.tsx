@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
+import { Portfolio } from "./pages/Portfolio";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { Toast } from "./components/Toast";
@@ -17,6 +18,9 @@ function App() {
     const hash = window.location.hash;
     if (hash === "#/admin" || window.location.pathname === "/admin") {
       return "/admin";
+    }
+    if (hash === "#/eop" || window.location.pathname === "/eop") {
+      return "/eop";
     }
     return "/";
   });
@@ -38,6 +42,8 @@ function App() {
       const hash = window.location.hash;
       if (hash === "#/admin") {
         setCurrentPath("/admin");
+      } else if (hash === "#/eop") {
+        setCurrentPath("/eop");
       } else {
         setCurrentPath("/");
       }
@@ -51,6 +57,8 @@ function App() {
     // Sync hash to allow browser navigation back/forward support
     if (path === "/admin") {
       window.location.hash = "/admin";
+    } else if (path === "/eop") {
+      window.location.hash = "/eop";
     } else {
       window.location.hash = "";
     }
@@ -76,11 +84,15 @@ function App() {
     try {
       await logout();
       showToast("Signed out of administrator session.", "success");
-      navigateTo("/");
+      navigateTo("/eop");
     } catch (err) {
       showToast("Failed to sign out.", "error");
     }
   };
+
+  if (currentPath === "/") {
+    return <Portfolio onNavigate={navigateTo} />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-portfolio-bg dark:bg-portfolio-dark-bg text-portfolio-text-primary dark:text-portfolio-dark-text-primary transition-colors duration-200">

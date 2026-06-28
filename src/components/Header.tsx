@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
         {/* Brand Logo */}
         <a
           href="#"
-          onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
+          onClick={(e) => { e.preventDefault(); onNavigate("/eop"); }}
           className="flex items-center gap-2 font-bold text-portfolio-text-primary dark:text-portfolio-dark-text-primary tracking-wide text-lg"
           aria-label="Video Showcase Homepage"
         >
@@ -37,13 +37,19 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
         <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
           <a
             href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
-            className={`text-sm font-medium transition-colors ${currentPath === "/" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary hover:text-portfolio-accent"}`}
+            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); }}
+            className={`text-sm font-medium transition-colors ${currentPath === "/eop" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary hover:text-portfolio-accent"}`}
           >
             Videos Showcase
           </a>
 
-
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
+            className="text-sm font-medium text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary hover:text-portfolio-accent transition-colors"
+          >
+            Main Portfolio
+          </a>
 
           {user && (
             <div className="flex items-center gap-3 pl-4 border-l border-portfolio-border dark:border-portfolio-dark-border">
@@ -82,12 +88,19 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
         <nav className="md:hidden border-t border-portfolio-border dark:border-portfolio-dark-border bg-white dark:bg-slate-900 px-5 py-4 flex flex-col gap-4 shadow-lg animate-fade-in" aria-label="Mobile navigation">
           <a
             href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/"); setMobileMenuOpen(false); }}
-            className={`py-2 text-sm font-medium border-b border-portfolio-border/50 dark:border-portfolio-dark-border/50 ${currentPath === "/" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary"}`}
+            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); setMobileMenuOpen(false); }}
+            className={`py-2 text-sm font-medium border-b border-portfolio-border/50 dark:border-portfolio-dark-border/50 ${currentPath === "/eop" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary"}`}
           >
             Videos Showcase
           </a>
 
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); onNavigate("/"); setMobileMenuOpen(false); }}
+            className="py-2 text-sm font-medium border-b border-portfolio-border/50 dark:border-portfolio-dark-border/50 text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary"
+          >
+            Main Portfolio
+          </a>
 
           {user && (
             <div className="flex flex-col gap-3 pt-2">
