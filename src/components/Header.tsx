@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Video, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
 import type { AuthStateUser } from "../firebase";
 
 interface HeaderProps {
@@ -13,53 +13,52 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Unconditionally apply light/white mode
+    // Unconditionally apply light/white mode to match the main portfolio
     document.documentElement.classList.remove("dark");
     localStorage.setItem("theme", "light");
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 border-b border-portfolio-border dark:border-portfolio-dark-border backdrop-blur-md transition-colors duration-200">
-      <div className="max-w-[1100px] mx-auto px-5 flex items-center justify-between min-height h-16">
+    <header className="sticky top-0 z-50 bg-white/96 border-b border-slate-200 backdrop-blur-md shadow-sm transition-colors duration-200" role="banner">
+      <div className="max-w-[1100px] mx-auto px-5 flex items-center justify-between h-16">
 
-        {/* Brand Logo */}
+        {/* Brand Logo - Matches Main Portfolio Style & Casing */}
         <a
           href="#"
-          onClick={(e) => { e.preventDefault(); onNavigate("/eop"); }}
-          className="flex items-center gap-2 font-bold text-portfolio-text-primary dark:text-portfolio-dark-text-primary tracking-wide text-lg"
-          aria-label="Video Showcase Homepage"
+          onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
+          className="font-bold text-[#0F172A] hover:text-[#4F46E5] transition-colors tracking-wide text-base shrink-0"
+          aria-label="Azmin Hassan — home"
         >
-          <Video className="w-5 h-5 text-portfolio-accent" />
-          <span>AZMIN EOP</span>
+          Azmin Hassan
         </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
           <a
             href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); }}
-            className={`text-sm font-medium transition-colors ${currentPath === "/eop" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary hover:text-portfolio-accent"}`}
-          >
-            Videos Showcase
-          </a>
-
-          <a
-            href="#"
             onClick={(e) => { e.preventDefault(); onNavigate("/"); }}
-            className="text-sm font-medium text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary hover:text-portfolio-accent transition-colors"
+            className="text-sm font-medium text-slate-600 hover:text-[#4F46E5] transition-colors"
           >
             Main Portfolio
           </a>
 
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); }}
+            className={`text-sm font-medium transition-colors ${currentPath === "/eop" ? "text-[#4F46E5] font-semibold" : "text-slate-600 hover:text-[#4F46E5]"}`}
+          >
+            EOP Assessment
+          </a>
+
           {user && (
-            <div className="flex items-center gap-3 pl-4 border-l border-portfolio-border dark:border-portfolio-dark-border">
-              <span className="flex items-center gap-1.5 text-xs text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary font-medium">
+            <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
+              <span className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                 <User className="w-3.5 h-3.5" />
                 {user.email?.split("@")[0]}
               </span>
               <button
                 onClick={onLogout}
-                className="flex items-center gap-1 text-xs text-red-500 hover:text-red-600 font-semibold cursor-pointer py-1 px-2 hover:bg-red-50 dark:hover:bg-red-950/20 rounded"
+                className="flex items-center gap-1 text-xs text-red-500 hover:text-red-600 font-semibold cursor-pointer py-1 px-2 hover:bg-red-50 rounded"
                 title="Log out from Admin panel"
               >
                 <LogOut className="w-3.5 h-3.5" />
@@ -69,11 +68,33 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
           )}
         </nav>
 
+        {/* ATS Mode Button - Matches Main Portfolio layout */}
+        <div className="hidden md:flex items-center gap-4">
+          <a
+            href="ats.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 border border-slate-200 rounded-md py-1.5 px-3 text-xs font-semibold text-slate-700 bg-transparent hover:bg-slate-50 transition-colors"
+            id="nav-ats-btn"
+            aria-label="Open ATS-optimised resume view (opens in new tab)"
+            title="ATS Mode — plain text resume for job applications"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            ATS Mode
+          </a>
+        </div>
+
         {/* Mobile Hamburger Controls */}
         <div className="flex items-center gap-3 md:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 border border-portfolio-border dark:border-portfolio-dark-border rounded-lg text-portfolio-text-primary dark:text-portfolio-dark-text-primary"
+            className="p-2 border border-slate-200 rounded-lg text-slate-700"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -85,35 +106,48 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPath, onN
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <nav className="md:hidden border-t border-portfolio-border dark:border-portfolio-dark-border bg-white dark:bg-slate-900 px-5 py-4 flex flex-col gap-4 shadow-lg animate-fade-in" aria-label="Mobile navigation">
-          <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); setMobileMenuOpen(false); }}
-            className={`py-2 text-sm font-medium border-b border-portfolio-border/50 dark:border-portfolio-dark-border/50 ${currentPath === "/eop" ? "text-portfolio-accent font-semibold" : "text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary"}`}
-          >
-            Videos Showcase
-          </a>
-
+        <nav className="md:hidden border-t border-slate-200 bg-white px-5 py-4 flex flex-col gap-4 shadow-lg" aria-label="Mobile navigation">
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); onNavigate("/"); setMobileMenuOpen(false); }}
-            className="py-2 text-sm font-medium border-b border-portfolio-border/50 dark:border-portfolio-dark-border/50 text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary"
+            className="py-2 text-sm font-medium border-b border-slate-100 text-slate-600"
           >
             Main Portfolio
           </a>
 
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); onNavigate("/eop"); setMobileMenuOpen(false); }}
+            className={`py-2 text-sm font-medium border-b border-slate-100 ${currentPath === "/eop" ? "text-[#4F46E5] font-semibold" : "text-slate-600"}`}
+          >
+            EOP Assessment
+          </a>
+
+          <a
+            href="ats.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-2 text-sm font-semibold text-slate-700 flex items-center gap-1.5 border-b border-slate-100"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            ATS Mode
+          </a>
+
           {user && (
-            <div className="flex flex-col gap-3 pt-2">
-              <span className="flex items-center gap-1.5 text-xs text-portfolio-text-secondary dark:text-portfolio-dark-text-secondary font-medium">
-                <User className="w-3.5 h-3.5" />
-                Active Account: {user.email}
+            <div className="pt-2 flex flex-col gap-2">
+              <span className="text-xs text-slate-500 font-medium">
+                Signed in as: {user.email?.split("@")[0]}
               </span>
               <button
                 onClick={() => { onLogout(); setMobileMenuOpen(false); }}
-                className="flex items-center justify-center gap-1.5 text-sm w-full py-2 bg-red-50 dark:bg-red-950/20 text-red-500 rounded font-semibold cursor-pointer"
+                className="flex items-center justify-center gap-1.5 text-sm w-full py-2 bg-red-50 text-red-500 rounded font-semibold cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
-                <span>Log Out</span>
+                <span>Logout</span>
               </button>
             </div>
           )}
